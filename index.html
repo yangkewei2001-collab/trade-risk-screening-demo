@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>International Trade Legal Risk Screening Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-grid">
+      <div>
+        <p class="kicker">LegalTech Portfolio Project</p>
+        <h1>International Trade Legal Risk Screening Demo</h1>
+        <p class="subtitle">外贸交易法律风险初筛工具</p>
+        <p class="description">
+          This tool helps identify preliminary legal and compliance risks in international trade transactions based on structured inputs and rule-based screening.
+        </p>
+        <div class="header-points" aria-label="Project capabilities">
+          <span>Rule library in JSON</span>
+          <span>Bilingual report output</span>
+          <span>GitHub Pages ready</span>
+        </div>
+      </div>
+      <div class="header-card">
+        <span>Portfolio Demo</span>
+        <strong>International trade compliance screening</strong>
+        <small>Static HTML, CSS, and JavaScript. No backend or database.</small>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page-grid">
+    <section class="disclaimer panel" aria-labelledby="disclaimer-title">
+      <div>
+        <p class="section-label">Disclaimer</p>
+        <h2 id="disclaimer-title">Preliminary screening only</h2>
+      </div>
+      <div class="disclaimer-copy">
+        <p>This tool is for preliminary screening only and does not constitute legal advice.</p>
+        <p>The results should be reviewed by qualified legal professionals before being relied upon.</p>
+      </div>
+    </section>
+
+    <section class="panel form-panel" aria-labelledby="form-title">
+      <div class="section-head">
+        <p class="section-label">Transaction Information Form</p>
+        <h2 id="form-title">Structured transaction inputs</h2>
+      </div>
+
+      <div class="sample-bar" aria-label="Sample transaction data">
+        <div>
+          <strong>Sample transactions</strong>
+          <span>Load a scenario to preview how the screening logic works.</span>
+        </div>
+        <div class="sample-actions">
+          <button type="button" class="button ghost" data-sample="low">Low-risk sample</button>
+          <button type="button" class="button ghost" data-sample="medium">Medium-risk sample</button>
+          <button type="button" class="button ghost" data-sample="high">High-risk sample</button>
+        </div>
+      </div>
+
+      <form id="riskForm">
+        <div class="form-section">
+          <h3>Parties and Transaction</h3>
+          <div class="field-grid">
+            <label>
+              Buyer country or region
+              <input id="buyerCountry" name="buyerCountry" type="text" placeholder="e.g. United States" required>
+            </label>
+
+            <label>
+              Seller country or region
+              <input id="sellerCountry" name="sellerCountry" type="text" placeholder="e.g. China" required>
+            </label>
+
+            <label>
+              Transaction amount
+              <input id="transactionAmount" name="transactionAmount" type="number" min="0" step="1000" placeholder="e.g. 250000" required>
+            </label>
+
+            <label>
+              Currency
+              <select id="currency" name="currency" required>
+                <option value="">Select</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="CNY">CNY</option>
+                <option value="GBP">GBP</option>
+                <option value="JPY">JPY</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+
+            <label class="wide">
+              Product type
+              <input id="productType" name="productType" type="text" placeholder="e.g. consumer electronics, medical devices, software service" required>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Trade, Payment and Delivery</h3>
+          <div class="field-grid">
+            <label>
+              Whether the product may be subject to export control
+              <select id="exportControl" name="exportControl" required>
+                <option value="">Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </label>
+
+            <label>
+              Payment method
+              <select id="paymentMethod" name="paymentMethod" required>
+                <option value="">Select</option>
+                <option value="tt">T/T</option>
+                <option value="lc">L/C</option>
+                <option value="dp">D/P</option>
+                <option value="da">D/A</option>
+                <option value="open_account">Open Account</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+
+            <label>
+              Whether payment is made by a third party
+              <select id="thirdPartyPayment" name="thirdPartyPayment" required>
+                <option value="">Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </label>
+
+            <label>
+              Whether Incoterms are clearly specified
+              <select id="incotermsSpecified" name="incotermsSpecified" required>
+                <option value="">Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </label>
+
+            <label>
+              Selected Incoterms rule
+              <select id="incotermsRule" name="incotermsRule" required>
+                <option value="">Select</option>
+                <option value="EXW">EXW</option>
+                <option value="FOB">FOB</option>
+                <option value="CIF">CIF</option>
+                <option value="DAP">DAP</option>
+                <option value="DDP">DDP</option>
+                <option value="FCA">FCA</option>
+                <option value="Other">Other</option>
+                <option value="Not specified">Not specified</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Contract and Compliance Clauses</h3>
+          <div class="field-grid">
+            <label>
+              Whether dispute resolution clause exists
+              <select id="disputeResolutionClause" name="disputeResolutionClause" required>
+                <option value="">Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </label>
+
+            <label>
+              Whether governing law clause exists
+              <select id="governingLawClause" name="governingLawClause" required>
+                <option value="">Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </label>
+
+            <label>
+              Whether personal data or customer data will be transferred across borders
+              <select id="crossBorderData" name="crossBorderData" required>
+                <option value="">Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </label>
+
+            <label>
+              Whether there is an anti-bribery clause
+              <select id="antiBriberyClause" name="antiBriberyClause" required>
+                <option value="">Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </label>
+
+            <label>
+              Whether sanctions screening has been conducted
+              <select id="sanctionsScreening" name="sanctionsScreening" required>
+                <option value="">Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button type="submit" class="button primary">Run Risk Screening</button>
+          <button type="button" id="resetBtn" class="button secondary">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel results-panel" aria-labelledby="result-title" aria-live="polite">
+      <div class="section-head result-head">
+        <div>
+          <p class="section-label">Risk Result Section</p>
+          <h2 id="result-title">Screening results</h2>
+        </div>
+        <span id="riskBadge" class="risk-badge neutral">Not run</span>
+      </div>
+
+      <div id="emptyState" class="empty-state">
+        Complete the form and run the screening to generate risk results and bilingual report content.
+      </div>
+
+      <div id="resultContent" class="hidden">
+        <div class="scoring-note">
+          <strong>Scoring logic</strong>
+          <p>Low = 1, Medium = 2, High = 3. Total score: 0-3 Low, 4-7 Medium, 8+ High. Certain red flags can lift the result to at least Medium; two or more critical red flags make it High.</p>
+        </div>
+
+        <div class="metrics">
+          <div>
+            <span>Overall risk level</span>
+            <strong id="overallRiskLevel">Low</strong>
+          </div>
+          <div>
+            <span>Total risk score</span>
+            <strong id="totalRiskScore">0</strong>
+          </div>
+          <div>
+            <span>Triggered risks</span>
+            <strong id="triggeredRiskCount">0</strong>
+          </div>
+        </div>
+
+        <div class="result-block">
+          <h3>List of triggered risks</h3>
+          <div id="triggeredRisks" class="risk-list"></div>
+        </div>
+
+        <div class="result-block report-section">
+          <p class="section-label">Report Generation Section</p>
+          <div class="tab-head">
+            <div>
+              <h3>Generated reports</h3>
+              <p>Switch between the Chinese report and English executive summary.</p>
+            </div>
+            <div class="tabs" role="tablist" aria-label="Generated report tabs">
+              <button type="button" id="tabChinese" class="tab-button active" role="tab" aria-selected="true" aria-controls="panelChinese">中文报告</button>
+              <button type="button" id="tabEnglish" class="tab-button" role="tab" aria-selected="false" aria-controls="panelEnglish">English Summary</button>
+              <button type="button" id="tabBilingual" class="tab-button" role="tab" aria-selected="false" aria-controls="panelBilingual">Bilingual View</button>
+            </div>
+          </div>
+          <div id="panelChinese" class="tab-panel" role="tabpanel" aria-labelledby="tabChinese">
+            <h4>中文法律风险初筛报告</h4>
+            <pre id="chineseReport" class="report-box"></pre>
+          </div>
+          <div id="panelEnglish" class="tab-panel hidden" role="tabpanel" aria-labelledby="tabEnglish">
+            <h4>English executive summary</h4>
+            <pre id="englishSummary" class="report-box"></pre>
+          </div>
+          <div id="panelBilingual" class="tab-panel hidden" role="tabpanel" aria-labelledby="tabBilingual">
+            <div class="bilingual-grid">
+              <div>
+                <h4>中文法律风险初筛报告</h4>
+                <pre id="bilingualChineseReport" class="report-box"></pre>
+              </div>
+              <div>
+                <h4>English executive summary</h4>
+                <pre id="bilingualEnglishSummary" class="report-box"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="split-block">
+          <div class="result-block">
+            <h3>Business follow-up checklist</h3>
+            <ul id="businessChecklist" class="plain-list"></ul>
+          </div>
+          <div class="result-block">
+            <h3>Suggested legal review points</h3>
+            <ul id="legalReviewPoints" class="plain-list"></ul>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button type="button" id="copyChineseBtn" class="button secondary">Copy Chinese Report</button>
+          <button type="button" id="copyEnglishBtn" class="button secondary">Copy English Summary</button>
+          <button type="button" id="downloadTxtBtn" class="button secondary">Download Full Report</button>
+          <button type="button" id="printReportBtn" class="button secondary">Print Report</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>International Trade Legal Risk Screening Demo</span>
+      <span>Designed as a LegalTech portfolio demo for international trade compliance screening.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
