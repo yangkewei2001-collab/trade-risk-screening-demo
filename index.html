@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>International Trade Legal Risk Screening Demo</title>
+  <link rel="icon" href="data:,">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,7 +13,7 @@
       <div>
         <p class="kicker">LegalTech Portfolio Project</p>
         <h1>International Trade Legal Risk Screening Demo</h1>
-        <p class="subtitle">外贸交易法律风险初筛工具</p>
+        <p class="subtitle">婵犮垼鍩栭悧鐐烘煥閵堝棛顩查柕鍫濇椤粍绻涙径瀣缂佽翰鍎查ˇ鐗堟償閵婏妇褰熼梺鍛婂笚缁诲嫰鎮洪銏╁晠闁靛鍎卞?/p>
         <p class="description">
           This tool helps identify preliminary legal and compliance risks in international trade transactions based on structured inputs and rule-based screening.
         </p>
@@ -20,6 +21,7 @@
           <span>Rule library in JSON</span>
           <span>Bilingual report output</span>
           <span>GitHub Pages ready</span>
+          <span>Legal authority layer</span>
         </div>
       </div>
       <div class="header-card">
@@ -37,8 +39,10 @@
         <h2 id="disclaimer-title">Preliminary screening only</h2>
       </div>
       <div class="disclaimer-copy">
-        <p>This tool is for preliminary screening only and does not constitute legal advice.</p>
-        <p>The results should be reviewed by qualified legal professionals before being relied upon.</p>
+        <p>This demo is a rule-based legal risk triage prototype. It does not provide legal advice, does not determine whether a transaction is lawful or unlawful, and does not replace review by qualified legal or compliance professionals.</p>
+        <p>闁?Demo 闁哄嫷鍨粩瀛樼▔椤忓浂娼愰柛鎺撶懇閳瑰秹宕濋妸褎鐣辨繛澶嬫礀缁躲儲顦版惔銊︾彟闁告帗绻勯悺顐﹀储閻旈鈧兘鏁嶇仦鑲╃憹闁圭粯鍔掔欢闈涒枖閺囩偟浼愰柟鏉跨箺椤棝鏁嶇仦鑲╃憹闁告帇鍊栭弻鍥ㄧ閵堝棙顫滈柡鍕靛灠閹線宕ラ崼鐔恒€婇柨娑樺缁″啯绋夊鍫濆幋闁哄洤銇橀崬顒勫礂瀹勯偊妲甸悹褍瀚婵嬫儍閸曨偆浼愰悽顖氱墛閸ㄣ劑宕ラ崼锝庢綈濞存粌鎼幉宕団偓鍏夊墲閻擄繝濡?/p>
+        <p>For sanctions, export control, AML, company ownership, and data-transfer issues, manual verification against current official databases and applicable local law is required.</p>
+        <p>閻庣敻鈧稓鑹鹃柛鎺撳劶椤ュ棝濡存担绋挎瘔闁告瑱绲块鎼佸礆闊祴鍋撴担绋垮唨婵炲弶顨婇幐鍫曞Υ娴ｇ褰嗛柛娆戭焾瑜板牓鎯勬繝鍐暡闁哄牆顦板鍫ュ椽鐏炵偓娈堕柟璇″枦濞夋洘鏅堕崘顔斤紪濡増锕槐婵婄疀閸涙番鈧繘宕烘潪鎵壘闁哄牃鍋撻柡鍌涙緲閻ｅジ寮憴鍕闁硅鍠栫花閬嶅椽瀹€鍕ㄥ亾閸屾粍鏆忛柛锔惧绾泛顕ョ€ｎ厾绠婚悶娑樺濮瑰顔忛妷锔惧闁哄被鍎埀?/p>
       </div>
     </section>
 
@@ -271,13 +275,13 @@
               <p>Switch between the Chinese report and English executive summary.</p>
             </div>
             <div class="tabs" role="tablist" aria-label="Generated report tabs">
-              <button type="button" id="tabChinese" class="tab-button active" role="tab" aria-selected="true" aria-controls="panelChinese">中文报告</button>
+              <button type="button" id="tabChinese" class="tab-button active" role="tab" aria-selected="true" aria-controls="panelChinese">婵炴垶鎼╅崢浠嬪几閸愵喖绠柕澶堝劜閸?/button>
               <button type="button" id="tabEnglish" class="tab-button" role="tab" aria-selected="false" aria-controls="panelEnglish">English Summary</button>
               <button type="button" id="tabBilingual" class="tab-button" role="tab" aria-selected="false" aria-controls="panelBilingual">Bilingual View</button>
             </div>
           </div>
           <div id="panelChinese" class="tab-panel" role="tabpanel" aria-labelledby="tabChinese">
-            <h4>中文法律风险初筛报告</h4>
+            <h4>婵炴垶鎼╅崢浠嬪几閸愩劉鏋栭柡鍥╁仧娴兼劕顪冪€ｎ亪鍙勬繛鍛崌瀹曟艾鈹戦崼銏℃噣闂佺缈伴崕閬嶅箟?/h4>
             <pre id="chineseReport" class="report-box"></pre>
           </div>
           <div id="panelEnglish" class="tab-panel hidden" role="tabpanel" aria-labelledby="tabEnglish">
@@ -287,7 +291,7 @@
           <div id="panelBilingual" class="tab-panel hidden" role="tabpanel" aria-labelledby="tabBilingual">
             <div class="bilingual-grid">
               <div>
-                <h4>中文法律风险初筛报告</h4>
+                <h4>婵炴垶鎼╅崢浠嬪几閸愩劉鏋栭柡鍥╁仧娴兼劕顪冪€ｎ亪鍙勬繛鍛崌瀹曟艾鈹戦崼銏℃噣闂佺缈伴崕閬嶅箟?/h4>
                 <pre id="bilingualChineseReport" class="report-box"></pre>
               </div>
               <div>
@@ -317,6 +321,27 @@
         </div>
       </div>
     </section>
+    <section class="panel authority-panel" aria-labelledby="authority-title">
+      <div class="section-head">
+        <p class="section-label">Legal Authority Matrix</p>
+        <h2 id="authority-title">Legal authority matrix</h2>
+        <p class="authority-intro">Built-in references explain why each rule is flagged and where manual legal or compliance review is still required. This matrix is for transparency and does not provide legal advice.</p>
+      </div>
+      <div class="authority-table-wrap">
+        <table class="authority-table">
+          <thead>
+            <tr>
+              <th>Risk area</th>
+              <th>Main authority / reference</th>
+              <th>Authority type</th>
+              <th>What the demo uses it for</th>
+              <th>Limitation</th>
+            </tr>
+          </thead>
+          <tbody id="authorityMatrixBody"></tbody>
+        </table>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
@@ -326,6 +351,9 @@
     </div>
   </footer>
 
+  <script src="legalSources.js"></script>
   <script src="script.js"></script>
+  <script src="authorityLayer.js"></script>
 </body>
 </html>
+

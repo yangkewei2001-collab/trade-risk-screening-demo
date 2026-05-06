@@ -1,196 +1,712 @@
 {
-  "rules": [
-    {
-      "id": "payment_method_other",
-      "category": "Payment Risk",
-      "riskLevel": "Medium",
-      "score": 2,
-      "conditionField": "paymentMethod",
-      "conditionOperator": "equals",
-      "conditionValue": "other",
-      "reason": "An unspecified or non-standard payment method may create uncertainty over payment timing, banking documents, and remedies for non-payment.",
-      "followUpQuestion": "What exact payment process, documents, and payment deadline will apply to this transaction?",
-      "reviewPoint": "Clarify the payment mechanism, required documents, payment deadline, default interest, and suspension rights."
-    },
-    {
-      "id": "incoterms_not_clear",
-      "category": "Incoterms / Delivery Risk",
-      "riskLevel": "Medium",
-      "score": 2,
-      "conditionField": "incotermsSpecified",
-      "conditionOperator": "equals",
-      "conditionValue": "false",
-      "reason": "Without clear Incoterms, delivery obligations, cost allocation, and risk transfer may be unclear.",
-      "followUpQuestion": "Which Incoterms rule applies to this transaction?",
-      "reviewPoint": "Clarify the delivery term, place of delivery, insurance obligation, customs responsibility, and transfer of risk."
-    },
-    {
-      "id": "incoterms_not_specified",
-      "category": "Incoterms / Delivery Risk",
-      "riskLevel": "Medium",
-      "score": 2,
-      "conditionField": "incotermsRule",
-      "conditionOperator": "equals",
-      "conditionValue": "Not specified",
-      "reason": "No Incoterms rule has been selected, which may leave the parties' delivery and risk allocation obligations uncertain.",
-      "followUpQuestion": "Should the parties use EXW, FCA, FOB, CIF, DAP, DDP, or another Incoterms rule?",
-      "reviewPoint": "Align the selected Incoterms rule with logistics, insurance, customs clearance capability, and tax considerations."
-    },
-    {
-      "id": "sanctions_screening_not_done",
-      "category": "Sanctions Risk",
-      "riskLevel": "High",
-      "score": 3,
-      "conditionField": "sanctionsScreening",
-      "conditionOperator": "equals",
-      "conditionValue": "false",
-      "reason": "Sanctions screening has not been conducted, creating potential restricted-party, destination, vessel, bank, or payment blocking risk.",
-      "followUpQuestion": "Have the buyer, seller, beneficial owners, banks, vessels, and destination been screened against relevant sanctions lists?",
-      "reviewPoint": "Conduct and document sanctions and restricted-party screening before contract execution, shipment, and payment."
-    },
-    {
-      "id": "sanctions_screening_unknown",
-      "category": "Sanctions Risk",
-      "riskLevel": "High",
-      "score": 3,
-      "conditionField": "sanctionsScreening",
-      "conditionOperator": "equals",
-      "conditionValue": "unknown",
-      "reason": "It is unclear whether sanctions screening has been conducted, which may expose the transaction to undiscovered sanctions or restricted-party risk.",
-      "followUpQuestion": "Who is responsible for sanctions screening and what records can confirm that screening was completed?",
-      "reviewPoint": "Confirm screening responsibility, scope, timing, list coverage, and record retention before proceeding."
-    },
-    {
-      "id": "export_control_possible",
-      "category": "Export Control Risk",
-      "riskLevel": "High",
-      "score": 3,
-      "conditionField": "exportControl",
-      "conditionOperator": "equals",
-      "conditionValue": "true",
-      "reason": "The product may be subject to export control, which may require classification, end-use review, licensing, or contractual compliance commitments.",
-      "followUpQuestion": "Has the product been classified and have the end user, destination, and end use been verified?",
-      "reviewPoint": "Assess export control classification, destination restrictions, end-use statements, license requirements, and compliance clauses."
-    },
-    {
-      "id": "export_control_unknown",
-      "category": "Export Control Risk",
-      "riskLevel": "Medium",
-      "score": 2,
-      "conditionField": "exportControl",
-      "conditionOperator": "equals",
-      "conditionValue": "unknown",
-      "reason": "The export control status of the product is unknown, which may delay shipment or create compliance exposure.",
-      "followUpQuestion": "What product specifications, HS code, technical parameters, and end-use information are available for classification?",
-      "reviewPoint": "Collect product information and perform export control classification before shipment or technology transfer."
-    },
-    {
-      "id": "contract_clause_anti_bribery_missing",
-      "category": "Contract Clause Risk",
-      "riskLevel": "Medium",
-      "score": 2,
-      "conditionField": "antiBriberyClause",
-      "conditionOperator": "equals",
-      "conditionValue": "false",
-      "reason": "The contract appears to lack an anti-bribery clause, which may weaken controls over improper payments, gifts, agents, and public-sector touchpoints.",
-      "followUpQuestion": "Does the transaction involve agents, distributors, customs brokers, or government-facing interactions?",
-      "reviewPoint": "Add compliance representations, anti-bribery undertakings, audit rights, termination rights, and reporting obligations."
-    },
-    {
-      "id": "dispute_resolution_missing",
-      "category": "Dispute Resolution Risk",
-      "riskLevel": "Medium",
-      "score": 2,
-      "conditionField": "disputeResolutionClause",
-      "conditionOperator": "equals",
-      "conditionValue": "false",
-      "reason": "Without a dispute resolution clause, forum, procedure, language, interim relief, and enforceability may be uncertain.",
-      "followUpQuestion": "Should disputes be resolved by court litigation or arbitration, and in which forum or seat?",
-      "reviewPoint": "Draft a dispute resolution clause covering forum, seat or jurisdiction, language, institution if any, interim measures, and enforcement strategy."
-    },
-    {
-      "id": "governing_law_missing",
-      "category": "Governing Law Risk",
-      "riskLevel": "Medium",
-      "score": 2,
-      "conditionField": "governingLawClause",
-      "conditionOperator": "equals",
-      "conditionValue": "false",
-      "reason": "Without a governing law clause, contract interpretation, remedies, limitation periods, and mandatory rules may be uncertain.",
-      "followUpQuestion": "Which governing law is commercially acceptable and enforceable for both parties?",
-      "reviewPoint": "Select governing law consistently with the dispute forum, performance location, mandatory rules, and enforcement considerations."
-    },
-    {
-      "id": "anti_bribery_unknown",
-      "category": "Anti-Bribery Risk",
-      "riskLevel": "Medium",
-      "score": 2,
-      "conditionField": "antiBriberyClause",
-      "conditionOperator": "equals",
-      "conditionValue": "unknown",
-      "reason": "It is unclear whether the contract contains anti-bribery protections, which may be problematic in higher-risk sales channels or intermediary arrangements.",
-      "followUpQuestion": "Can the contract draft be checked for anti-bribery, sanctions, and third-party compliance wording?",
-      "reviewPoint": "Review compliance clauses, third-party due diligence obligations, audit rights, and termination triggers."
-    },
-    {
-      "id": "cross_border_data_transfer",
-      "category": "Cross-Border Data Risk",
-      "riskLevel": "Medium",
-      "score": 2,
-      "conditionField": "crossBorderData",
-      "conditionOperator": "equals",
-      "conditionValue": "true",
-      "reason": "Cross-border transfer of personal data may trigger privacy and data transfer compliance requirements.",
-      "followUpQuestion": "What types of personal data will be transferred, and to which country or region?",
-      "reviewPoint": "Assess GDPR, PIPL, data processing agreements, privacy notices, security measures, and cross-border transfer mechanisms."
-    },
-    {
-      "id": "high_value_transaction",
-      "category": "High-Value Transaction Risk",
-      "riskLevel": "Medium",
-      "score": 2,
-      "conditionField": "transactionAmount",
-      "conditionOperator": "greaterThanOrEqual",
-      "conditionValue": 500000,
-      "reason": "High-value transactions usually require stronger contract review, credit checks, insurance, approvals, and audit trail.",
-      "followUpQuestion": "Has this transaction been escalated for commercial, finance, compliance, and legal approval?",
-      "reviewPoint": "Review approval authority, credit support, liability caps, insurance coverage, tax implications, and record retention."
-    },
-    {
-      "id": "third_party_payment",
-      "category": "Third-Party Payment Risk",
-      "riskLevel": "High",
-      "score": 3,
-      "conditionField": "thirdPartyPayment",
-      "conditionOperator": "equals",
-      "conditionValue": "true",
-      "reason": "Payment by a third party may indicate fraud, money laundering, or mismatch between the contracting party and the paying entity.",
-      "followUpQuestion": "Why is the payment made by a third party instead of the contracting buyer?",
-      "reviewPoint": "Verify the relationship between the buyer, payer, and beneficiary, and consider enhanced due diligence."
-    },
-    {
-      "id": "open_account_credit_risk",
-      "category": "Open Account / Credit Risk",
-      "riskLevel": "High",
-      "score": 3,
-      "conditionField": "paymentMethod",
-      "conditionOperator": "equals",
-      "conditionValue": "open_account",
-      "reason": "Open account payment exposes the seller to non-payment, delayed payment, and cross-border recovery risk after delivery.",
-      "followUpQuestion": "Has the buyer's creditworthiness been checked and are payment security measures available?",
-      "reviewPoint": "Consider advance payment, letter of credit, credit insurance, parent guarantee, retention of title, and suspension rights."
-    },
-    {
-      "id": "documentary_acceptance_credit_risk",
-      "category": "Open Account / Credit Risk",
-      "riskLevel": "Medium",
-      "score": 2,
-      "conditionField": "paymentMethod",
-      "conditionOperator": "equals",
-      "conditionValue": "da",
-      "reason": "Documents against acceptance may create credit exposure because payment occurs after acceptance rather than before release of documents.",
-      "followUpQuestion": "What is the buyer's credit profile and what happens if payment is not made at maturity?",
-      "reviewPoint": "Review payment maturity, bank involvement, collection procedure, default remedies, and credit support."
-    }
-  ]
+    "rules":  [
+                  {
+                      "id":  "payment_method_other",
+                      "category":  "Payment Risk",
+                      "riskLevel":  "Medium",
+                      "score":  2,
+                      "conditionField":  "paymentMethod",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "other",
+                      "reason":  "An unspecified or non-standard payment method may create uncertainty over payment timing, banking documents, and remedies for non-payment.",
+                      "followUpQuestion":  "What exact payment process, documents, and payment deadline will apply to this transaction?",
+                      "reviewPoint":  "Clarify the payment mechanism, required documents, payment deadline, default interest, and suspension rights.",
+                      "riskArea":  "AML / trade-based money laundering",
+                      "triggerCondition":  "paymentMethod equals other",
+                      "severity":  "Medium",
+                      "sourceKeys":  [
+                                         "FATF_TBML_INDICATORS"
+                                     ],
+                      "legalRationale":  "Trade-based money laundering indicators may include third-party payments, unusual payment routes, mismatched parties, vague goods descriptions, unusual pricing, and unclear source of funds.",
+                      "applicabilityLimits":  "Risk indicators are not conclusive proof of money laundering. They require further due diligence and manual verification.",
+                      "evidenceNeeded":  [
+                                             "Buyer, payer, and beneficiary relationship explanation",
+                                             "Payment instruction",
+                                             "Bank account ownership",
+                                             "Beneficial ownership information",
+                                             "Invoice and shipment documents"
+                                         ],
+                      "recommendedAction":  "Verify payer-buyer relationship, source of funds, beneficial ownership, payment route, and document consistency before accepting payment.",
+                      "escalation":  "Escalate to compliance/finance/legal if payment parties, routes, documents, or source of funds remain unclear.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Payment Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "An unspecified or non-standard payment method may create uncertainty over payment timing, banking documents, and remedies for non-payment."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Payment Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "An unspecified or non-standard payment method may create uncertainty over payment timing, banking documents, and remedies for non-payment."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "incoterms_not_clear",
+                      "category":  "Incoterms / Delivery Risk",
+                      "riskLevel":  "Medium",
+                      "score":  2,
+                      "conditionField":  "incotermsSpecified",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "false",
+                      "reason":  "Without clear Incoterms, delivery obligations, cost allocation, and risk transfer may be unclear.",
+                      "followUpQuestion":  "Which Incoterms rule applies to this transaction?",
+                      "reviewPoint":  "Clarify the delivery term, place of delivery, insurance obligation, customs responsibility, and transfer of risk.",
+                      "riskArea":  "Incoterms / delivery terms",
+                      "triggerCondition":  "incotermsSpecified equals false",
+                      "severity":  "Medium",
+                      "sourceKeys":  [
+                                         "INCOTERMS_2020"
+                                     ],
+                      "legalRationale":  "Delivery terms should be reviewed because they allocate delivery obligations, costs, customs responsibilities, and risk transfer.",
+                      "applicabilityLimits":  "Incoterms do not decide title transfer, payment obligations, governing law, dispute resolution, sanctions, or export control compliance.",
+                      "evidenceNeeded":  [
+                                             "Contract delivery clause",
+                                             "Selected Incoterms rule",
+                                             "Named place or port",
+                                             "Shipping and insurance documents"
+                                         ],
+                      "recommendedAction":  "Clarify the Incoterms rule, named place/port, insurance responsibility, customs clearance responsibility, and logistics workflow.",
+                      "escalation":  "Escalate to legal/logistics review if delivery responsibility, risk transfer, insurance, or customs clearance is unclear.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Incoterms / Delivery Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "Without clear Incoterms, delivery obligations, cost allocation, and risk transfer may be unclear."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Incoterms / Delivery Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "Without clear Incoterms, delivery obligations, cost allocation, and risk transfer may be unclear."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "incoterms_not_specified",
+                      "category":  "Incoterms / Delivery Risk",
+                      "riskLevel":  "Medium",
+                      "score":  2,
+                      "conditionField":  "incotermsRule",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "Not specified",
+                      "reason":  "No Incoterms rule has been selected, which may leave the parties\u0027 delivery and risk allocation obligations uncertain.",
+                      "followUpQuestion":  "Should the parties use EXW, FCA, FOB, CIF, DAP, DDP, or another Incoterms rule?",
+                      "reviewPoint":  "Align the selected Incoterms rule with logistics, insurance, customs clearance capability, and tax considerations.",
+                      "riskArea":  "Incoterms / delivery terms",
+                      "triggerCondition":  "incotermsRule equals Not specified",
+                      "severity":  "Medium",
+                      "sourceKeys":  [
+                                         "INCOTERMS_2020"
+                                     ],
+                      "legalRationale":  "Delivery terms should be reviewed because they allocate delivery obligations, costs, customs responsibilities, and risk transfer.",
+                      "applicabilityLimits":  "Incoterms do not decide title transfer, payment obligations, governing law, dispute resolution, sanctions, or export control compliance.",
+                      "evidenceNeeded":  [
+                                             "Contract delivery clause",
+                                             "Selected Incoterms rule",
+                                             "Named place or port",
+                                             "Shipping and insurance documents"
+                                         ],
+                      "recommendedAction":  "Clarify the Incoterms rule, named place/port, insurance responsibility, customs clearance responsibility, and logistics workflow.",
+                      "escalation":  "Escalate to legal/logistics review if delivery responsibility, risk transfer, insurance, or customs clearance is unclear.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Incoterms / Delivery Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "No Incoterms rule has been selected, which may leave the parties\u0027 delivery and risk allocation obligations uncertain."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Incoterms / Delivery Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "No Incoterms rule has been selected, which may leave the parties\u0027 delivery and risk allocation obligations uncertain."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "sanctions_screening_not_done",
+                      "category":  "Sanctions Risk",
+                      "riskLevel":  "High",
+                      "score":  3,
+                      "conditionField":  "sanctionsScreening",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "false",
+                      "reason":  "Sanctions screening has not been conducted, creating potential restricted-party, destination, vessel, bank, or payment blocking risk.",
+                      "followUpQuestion":  "Have the buyer, seller, beneficial owners, banks, vessels, and destination been screened against relevant sanctions lists?",
+                      "reviewPoint":  "Conduct and document sanctions and restricted-party screening before contract execution, shipment, and payment.",
+                      "riskArea":  "Sanctions screening",
+                      "triggerCondition":  "sanctionsScreening equals false",
+                      "severity":  "High",
+                      "sourceKeys":  [
+                                         "UN_CONSOLIDATED_SANCTIONS_LIST",
+                                         "EU_SANCTIONS_MAP",
+                                         "UK_OFSI_FINANCIAL_SANCTIONS",
+                                         "OFAC_COMPLIANCE_FRAMEWORK"
+                                     ],
+                      "legalRationale":  "Sanctions review may be required for counterparties, beneficial owners, banks, vessels, destinations, and payment channels, especially where a UN, EU, UK, U.S., USD, or restricted-region nexus may exist.",
+                      "applicabilityLimits":  "The demo does not query live sanctions lists. Restricted-region examples are illustrative and non-exhaustive. Manual verification against current official lists is required.",
+                      "evidenceNeeded":  [
+                                             "Counterparty legal name",
+                                             "Beneficial owner information",
+                                             "Banks and payment route",
+                                             "Vessel, port, destination, and end-user information",
+                                             "Current official sanctions screening records"
+                                         ],
+                      "recommendedAction":  "Conduct and document manual sanctions screening against current official databases before signing, shipment, payment, or performance.",
+                      "escalation":  "Escalate to sanctions/compliance counsel if any name, ownership, bank, destination, vessel, or payment route raises a possible match or nexus concern.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Sanctions Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "Sanctions screening has not been conducted, creating potential restricted-party, destination, vessel, bank, or payment blocking risk."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Sanctions Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "Sanctions screening has not been conducted, creating potential restricted-party, destination, vessel, bank, or payment blocking risk."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "sanctions_screening_unknown",
+                      "category":  "Sanctions Risk",
+                      "riskLevel":  "High",
+                      "score":  3,
+                      "conditionField":  "sanctionsScreening",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "unknown",
+                      "reason":  "It is unclear whether sanctions screening has been conducted, which may expose the transaction to undiscovered sanctions or restricted-party risk.",
+                      "followUpQuestion":  "Who is responsible for sanctions screening and what records can confirm that screening was completed?",
+                      "reviewPoint":  "Confirm screening responsibility, scope, timing, list coverage, and record retention before proceeding.",
+                      "riskArea":  "Sanctions screening",
+                      "triggerCondition":  "sanctionsScreening equals unknown",
+                      "severity":  "High",
+                      "sourceKeys":  [
+                                         "UN_CONSOLIDATED_SANCTIONS_LIST",
+                                         "EU_SANCTIONS_MAP",
+                                         "UK_OFSI_FINANCIAL_SANCTIONS",
+                                         "OFAC_COMPLIANCE_FRAMEWORK"
+                                     ],
+                      "legalRationale":  "Sanctions review may be required for counterparties, beneficial owners, banks, vessels, destinations, and payment channels, especially where a UN, EU, UK, U.S., USD, or restricted-region nexus may exist.",
+                      "applicabilityLimits":  "The demo does not query live sanctions lists. Restricted-region examples are illustrative and non-exhaustive. Manual verification against current official lists is required.",
+                      "evidenceNeeded":  [
+                                             "Counterparty legal name",
+                                             "Beneficial owner information",
+                                             "Banks and payment route",
+                                             "Vessel, port, destination, and end-user information",
+                                             "Current official sanctions screening records"
+                                         ],
+                      "recommendedAction":  "Conduct and document manual sanctions screening against current official databases before signing, shipment, payment, or performance.",
+                      "escalation":  "Escalate to sanctions/compliance counsel if any name, ownership, bank, destination, vessel, or payment route raises a possible match or nexus concern.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Sanctions Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "It is unclear whether sanctions screening has been conducted, which may expose the transaction to undiscovered sanctions or restricted-party risk."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Sanctions Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "It is unclear whether sanctions screening has been conducted, which may expose the transaction to undiscovered sanctions or restricted-party risk."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "export_control_possible",
+                      "category":  "Export Control Risk",
+                      "riskLevel":  "High",
+                      "score":  3,
+                      "conditionField":  "exportControl",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "true",
+                      "reason":  "The product may be subject to export control, which may require classification, end-use review, licensing, or contractual compliance commitments.",
+                      "followUpQuestion":  "Has the product been classified and have the end user, destination, and end use been verified?",
+                      "reviewPoint":  "Assess export control classification, destination restrictions, end-use statements, license requirements, and compliance clauses.",
+                      "riskArea":  "Export control",
+                      "triggerCondition":  "exportControl equals true",
+                      "severity":  "High",
+                      "sourceKeys":  [
+                                         "BIS_END_USE_END_USER_CONTROLS",
+                                         "UK_ECJU_EXPORT_CONTROLS"
+                                     ],
+                      "legalRationale":  "Dual-use goods, controlled technology, technical data, sensitive end users, and sensitive end uses may require classification and licensing review.",
+                      "applicabilityLimits":  "The demo does not classify products, determine ECCNs, check control lists, or determine license requirements. Manual export control review is required.",
+                      "evidenceNeeded":  [
+                                             "Product specifications",
+                                             "HS code or classification materials",
+                                             "Technology origin",
+                                             "End-user and end-use statement",
+                                             "Destination and onward transfer information"
+                                         ],
+                      "recommendedAction":  "Collect product and end-use materials, classify the item, verify end user/end use, and assess license requirements before shipment or technical transfer.",
+                      "escalation":  "Escalate to export control counsel if the item, technology, destination, end user, or end use is unknown or sensitive.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Export Control Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "The product may be subject to export control, which may require classification, end-use review, licensing, or contractual compliance commitments."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Export Control Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "The product may be subject to export control, which may require classification, end-use review, licensing, or contractual compliance commitments."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "export_control_unknown",
+                      "category":  "Export Control Risk",
+                      "riskLevel":  "Medium",
+                      "score":  2,
+                      "conditionField":  "exportControl",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "unknown",
+                      "reason":  "The export control status of the product is unknown, which may delay shipment or create compliance exposure.",
+                      "followUpQuestion":  "What product specifications, HS code, technical parameters, and end-use information are available for classification?",
+                      "reviewPoint":  "Collect product information and perform export control classification before shipment or technology transfer.",
+                      "riskArea":  "Export control",
+                      "triggerCondition":  "exportControl equals unknown",
+                      "severity":  "Medium",
+                      "sourceKeys":  [
+                                         "BIS_END_USE_END_USER_CONTROLS",
+                                         "UK_ECJU_EXPORT_CONTROLS"
+                                     ],
+                      "legalRationale":  "Dual-use goods, controlled technology, technical data, sensitive end users, and sensitive end uses may require classification and licensing review.",
+                      "applicabilityLimits":  "The demo does not classify products, determine ECCNs, check control lists, or determine license requirements. Manual export control review is required.",
+                      "evidenceNeeded":  [
+                                             "Product specifications",
+                                             "HS code or classification materials",
+                                             "Technology origin",
+                                             "End-user and end-use statement",
+                                             "Destination and onward transfer information"
+                                         ],
+                      "recommendedAction":  "Collect product and end-use materials, classify the item, verify end user/end use, and assess license requirements before shipment or technical transfer.",
+                      "escalation":  "Escalate to export control counsel if the item, technology, destination, end user, or end use is unknown or sensitive.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Export Control Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "The export control status of the product is unknown, which may delay shipment or create compliance exposure."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Export Control Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "The export control status of the product is unknown, which may delay shipment or create compliance exposure."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "contract_clause_anti_bribery_missing",
+                      "category":  "Contract Clause Risk",
+                      "riskLevel":  "Medium",
+                      "score":  2,
+                      "conditionField":  "antiBriberyClause",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "false",
+                      "reason":  "The contract appears to lack an anti-bribery clause, which may weaken controls over improper payments, gifts, agents, and public-sector touchpoints.",
+                      "followUpQuestion":  "Does the transaction involve agents, distributors, customs brokers, or government-facing interactions?",
+                      "reviewPoint":  "Add compliance representations, anti-bribery undertakings, audit rights, termination rights, and reporting obligations.",
+                      "riskArea":  "Anti-bribery / intermediary risk",
+                      "triggerCondition":  "antiBriberyClause equals false",
+                      "severity":  "Medium",
+                      "sourceKeys":  [
+                                         "UK_BRIBERY_ACT_GUIDANCE",
+                                         "FCPA_RESOURCE_GUIDE"
+                                     ],
+                      "legalRationale":  "Intermediaries, unusual commissions, government customers, state-owned enterprises, gifts, hospitality, and facilitation payments may require anti-bribery due diligence.",
+                      "applicabilityLimits":  "The demo does not determine whether bribery occurred or whether FCPA/UK Bribery Act jurisdiction applies. Manual legal review is required.",
+                      "evidenceNeeded":  [
+                                             "Agent or distributor information",
+                                             "Commission or success fee terms",
+                                             "Government or state-owned-enterprise customer information",
+                                             "Gifts, hospitality, or facilitation payment records",
+                                             "Written intermediary agreement"
+                                         ],
+                      "recommendedAction":  "Add anti-bribery undertakings, conduct third-party due diligence, review commission terms, and document approvals.",
+                      "escalation":  "Escalate to compliance/legal if an intermediary, public-sector touchpoint, unusual commission, gift, or hospitality issue appears.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Contract Clause Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "The contract appears to lack an anti-bribery clause, which may weaken controls over improper payments, gifts, agents, and public-sector touchpoints."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Contract Clause Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "The contract appears to lack an anti-bribery clause, which may weaken controls over improper payments, gifts, agents, and public-sector touchpoints."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "dispute_resolution_missing",
+                      "category":  "Dispute Resolution Risk",
+                      "riskLevel":  "Medium",
+                      "score":  2,
+                      "conditionField":  "disputeResolutionClause",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "false",
+                      "reason":  "Without a dispute resolution clause, forum, procedure, language, interim relief, and enforceability may be uncertain.",
+                      "followUpQuestion":  "Should disputes be resolved by court litigation or arbitration, and in which forum or seat?",
+                      "reviewPoint":  "Draft a dispute resolution clause covering forum, seat or jurisdiction, language, institution if any, interim measures, and enforcement strategy.",
+                      "riskArea":  "Dispute resolution / arbitration",
+                      "triggerCondition":  "disputeResolutionClause equals false",
+                      "severity":  "Medium",
+                      "sourceKeys":  [
+                                         "NEW_YORK_CONVENTION"
+                                     ],
+                      "legalRationale":  "Cross-border disputes require planning for forum, procedure, language, interim relief, and enforcement.",
+                      "applicabilityLimits":  "This demo does not assess enforceability in a specific jurisdiction. Manual legal review is required.",
+                      "evidenceNeeded":  [
+                                             "Dispute resolution clause",
+                                             "Arbitration seat or court jurisdiction",
+                                             "Arbitral institution",
+                                             "Counterparty asset locations"
+                                         ],
+                      "recommendedAction":  "Specify forum or arbitration, seat, institution, language, interim measures, and enforcement strategy.",
+                      "escalation":  "Escalate to legal review before signing if forum, seat, institution, or enforcement path is unclear.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Dispute Resolution Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "Without a dispute resolution clause, forum, procedure, language, interim relief, and enforceability may be uncertain."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Dispute Resolution Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "Without a dispute resolution clause, forum, procedure, language, interim relief, and enforceability may be uncertain."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "governing_law_missing",
+                      "category":  "Governing Law Risk",
+                      "riskLevel":  "Medium",
+                      "score":  2,
+                      "conditionField":  "governingLawClause",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "false",
+                      "reason":  "Without a governing law clause, contract interpretation, remedies, limitation periods, and mandatory rules may be uncertain.",
+                      "followUpQuestion":  "Which governing law is commercially acceptable and enforceable for both parties?",
+                      "reviewPoint":  "Select governing law consistently with the dispute forum, performance location, mandatory rules, and enforcement considerations.",
+                      "riskArea":  "Governing law / international sale of goods",
+                      "triggerCondition":  "governingLawClause equals false",
+                      "severity":  "Medium",
+                      "sourceKeys":  [
+                                         "CISG_UNCITRAL"
+                                     ],
+                      "legalRationale":  "Cross-border goods contracts may require governing law and possible CISG applicability review.",
+                      "applicabilityLimits":  "This demo does not determine CISG applicability automatically. It only flags when CISG analysis may be required.",
+                      "evidenceNeeded":  [
+                                             "Contract governing law clause",
+                                             "Buyer and seller places of business",
+                                             "Goods/service description",
+                                             "CISG opt-in or opt-out wording if any"
+                                         ],
+                      "recommendedAction":  "Select and document governing law, check whether CISG may apply, and align the clause with dispute resolution and enforcement planning.",
+                      "escalation":  "Escalate to legal review if the clause is missing, inconsistent, or commercially sensitive.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Governing Law Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "Without a governing law clause, contract interpretation, remedies, limitation periods, and mandatory rules may be uncertain."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Governing Law Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "Without a governing law clause, contract interpretation, remedies, limitation periods, and mandatory rules may be uncertain."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "anti_bribery_unknown",
+                      "category":  "Anti-Bribery Risk",
+                      "riskLevel":  "Medium",
+                      "score":  2,
+                      "conditionField":  "antiBriberyClause",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "unknown",
+                      "reason":  "It is unclear whether the contract contains anti-bribery protections, which may be problematic in higher-risk sales channels or intermediary arrangements.",
+                      "followUpQuestion":  "Can the contract draft be checked for anti-bribery, sanctions, and third-party compliance wording?",
+                      "reviewPoint":  "Review compliance clauses, third-party due diligence obligations, audit rights, and termination triggers.",
+                      "riskArea":  "Anti-bribery / intermediary risk",
+                      "triggerCondition":  "antiBriberyClause equals unknown",
+                      "severity":  "Medium",
+                      "sourceKeys":  [
+                                         "UK_BRIBERY_ACT_GUIDANCE",
+                                         "FCPA_RESOURCE_GUIDE"
+                                     ],
+                      "legalRationale":  "Intermediaries, unusual commissions, government customers, state-owned enterprises, gifts, hospitality, and facilitation payments may require anti-bribery due diligence.",
+                      "applicabilityLimits":  "The demo does not determine whether bribery occurred or whether FCPA/UK Bribery Act jurisdiction applies. Manual legal review is required.",
+                      "evidenceNeeded":  [
+                                             "Agent or distributor information",
+                                             "Commission or success fee terms",
+                                             "Government or state-owned-enterprise customer information",
+                                             "Gifts, hospitality, or facilitation payment records",
+                                             "Written intermediary agreement"
+                                         ],
+                      "recommendedAction":  "Add anti-bribery undertakings, conduct third-party due diligence, review commission terms, and document approvals.",
+                      "escalation":  "Escalate to compliance/legal if an intermediary, public-sector touchpoint, unusual commission, gift, or hospitality issue appears.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Anti-Bribery Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "It is unclear whether the contract contains anti-bribery protections, which may be problematic in higher-risk sales channels or intermediary arrangements."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Anti-Bribery Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "It is unclear whether the contract contains anti-bribery protections, which may be problematic in higher-risk sales channels or intermediary arrangements."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "cross_border_data_transfer",
+                      "category":  "Cross-Border Data Risk",
+                      "riskLevel":  "Medium",
+                      "score":  2,
+                      "conditionField":  "crossBorderData",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "true",
+                      "reason":  "Cross-border transfer of personal data may trigger privacy and data transfer compliance requirements.",
+                      "followUpQuestion":  "What types of personal data will be transferred, and to which country or region?",
+                      "reviewPoint":  "Assess GDPR, PIPL, data processing agreements, privacy notices, security measures, and cross-border transfer mechanisms.",
+                      "riskArea":  "Cross-border data transfer",
+                      "triggerCondition":  "crossBorderData equals true",
+                      "severity":  "Medium",
+                      "sourceKeys":  [
+                                         "GDPR_SCC_EU_COMMISSION"
+                                     ],
+                      "legalRationale":  "EU/EEA personal data transfers outside the EU/EEA and customer data sharing with overseas agents, freight forwarders, or platforms may require transfer mechanism review.",
+                      "applicabilityLimits":  "The demo does not determine whether SCCs or any transfer mechanism are sufficient in a specific scenario. Data protection review is required.",
+                      "evidenceNeeded":  [
+                                             "Categories of personal data",
+                                             "Data exporter and importer",
+                                             "Transfer destination",
+                                             "DPA/SCC or transfer mechanism",
+                                             "Security measures and privacy notice"
+                                         ],
+                      "recommendedAction":  "Map the data flow, confirm whether personal data is involved, and review DPA/SCC, transfer mechanism, notice, and security controls.",
+                      "escalation":  "Escalate to privacy/legal review if personal data, ID/passport/payment data, or overseas processing is involved.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Cross-Border Data Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "Cross-border transfer of personal data may trigger privacy and data transfer compliance requirements."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Cross-Border Data Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "Cross-border transfer of personal data may trigger privacy and data transfer compliance requirements."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "high_value_transaction",
+                      "category":  "High-Value Transaction Risk",
+                      "riskLevel":  "Medium",
+                      "score":  2,
+                      "conditionField":  "transactionAmount",
+                      "conditionOperator":  "greaterThanOrEqual",
+                      "conditionValue":  500000,
+                      "reason":  "High-value transactions usually require stronger contract review, credit checks, insurance, approvals, and audit trail.",
+                      "followUpQuestion":  "Has this transaction been escalated for commercial, finance, compliance, and legal approval?",
+                      "reviewPoint":  "Review approval authority, credit support, liability caps, insurance coverage, tax implications, and record retention.",
+                      "riskArea":  "Practical legal review",
+                      "triggerCondition":  "transactionAmount greaterThanOrEqual 500000",
+                      "severity":  "Medium",
+                      "sourceKeys":  [
+
+                                     ],
+                      "legalRationale":  "High-value transactions usually require stronger contract review, credit checks, insurance, approvals, and audit trail.",
+                      "applicabilityLimits":  "This demo flags a potential review point only. It does not determine whether the transaction is lawful or unlawful.",
+                      "evidenceNeeded":  [
+                                             "Transaction documents",
+                                             "Counterparty information",
+                                             "Business rationale",
+                                             "Relevant internal approval records"
+                                         ],
+                      "recommendedAction":  "Review approval authority, credit support, liability caps, insurance coverage, tax implications, and record retention.",
+                      "escalation":  "Escalate to qualified legal or compliance professionals where facts are incomplete or risk remains unclear.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "High-Value Transaction Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "High-value transactions usually require stronger contract review, credit checks, insurance, approvals, and audit trail."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "High-Value Transaction Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "High-value transactions usually require stronger contract review, credit checks, insurance, approvals, and audit trail."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "third_party_payment",
+                      "category":  "Third-Party Payment Risk",
+                      "riskLevel":  "High",
+                      "score":  3,
+                      "conditionField":  "thirdPartyPayment",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "true",
+                      "reason":  "Payment by a third party may indicate fraud, money laundering, or mismatch between the contracting party and the paying entity.",
+                      "followUpQuestion":  "Why is the payment made by a third party instead of the contracting buyer?",
+                      "reviewPoint":  "Verify the relationship between the buyer, payer, and beneficiary, and consider enhanced due diligence.",
+                      "riskArea":  "AML / trade-based money laundering",
+                      "triggerCondition":  "thirdPartyPayment equals true",
+                      "severity":  "High",
+                      "sourceKeys":  [
+                                         "FATF_TBML_INDICATORS"
+                                     ],
+                      "legalRationale":  "Trade-based money laundering indicators may include third-party payments, unusual payment routes, mismatched parties, vague goods descriptions, unusual pricing, and unclear source of funds.",
+                      "applicabilityLimits":  "Risk indicators are not conclusive proof of money laundering. They require further due diligence and manual verification.",
+                      "evidenceNeeded":  [
+                                             "Buyer, payer, and beneficiary relationship explanation",
+                                             "Payment instruction",
+                                             "Bank account ownership",
+                                             "Beneficial ownership information",
+                                             "Invoice and shipment documents"
+                                         ],
+                      "recommendedAction":  "Verify payer-buyer relationship, source of funds, beneficial ownership, payment route, and document consistency before accepting payment.",
+                      "escalation":  "Escalate to compliance/finance/legal if payment parties, routes, documents, or source of funds remain unclear.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Third-Party Payment Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "Payment by a third party may indicate fraud, money laundering, or mismatch between the contracting party and the paying entity."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Third-Party Payment Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "Payment by a third party may indicate fraud, money laundering, or mismatch between the contracting party and the paying entity."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "open_account_credit_risk",
+                      "category":  "Open Account / Credit Risk",
+                      "riskLevel":  "High",
+                      "score":  3,
+                      "conditionField":  "paymentMethod",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "open_account",
+                      "reason":  "Open account payment exposes the seller to non-payment, delayed payment, and cross-border recovery risk after delivery.",
+                      "followUpQuestion":  "Has the buyer\u0027s creditworthiness been checked and are payment security measures available?",
+                      "reviewPoint":  "Consider advance payment, letter of credit, credit insurance, parent guarantee, retention of title, and suspension rights.",
+                      "riskArea":  "Incoterms / delivery terms",
+                      "triggerCondition":  "paymentMethod equals open_account",
+                      "severity":  "High",
+                      "sourceKeys":  [
+                                         "INCOTERMS_2020"
+                                     ],
+                      "legalRationale":  "Delivery terms should be reviewed because they allocate delivery obligations, costs, customs responsibilities, and risk transfer.",
+                      "applicabilityLimits":  "Incoterms do not decide title transfer, payment obligations, governing law, dispute resolution, sanctions, or export control compliance.",
+                      "evidenceNeeded":  [
+                                             "Contract delivery clause",
+                                             "Selected Incoterms rule",
+                                             "Named place or port",
+                                             "Shipping and insurance documents"
+                                         ],
+                      "recommendedAction":  "Clarify the Incoterms rule, named place/port, insurance responsibility, customs clearance responsibility, and logistics workflow.",
+                      "escalation":  "Escalate to legal/logistics review if delivery responsibility, risk transfer, insurance, or customs clearance is unclear.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Open Account / Credit Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "Open account payment exposes the seller to non-payment, delayed payment, and cross-border recovery risk after delivery."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Open Account / Credit Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "Open account payment exposes the seller to non-payment, delayed payment, and cross-border recovery risk after delivery."
+                                                    }
+                                         }
+                  },
+                  {
+                      "id":  "documentary_acceptance_credit_risk",
+                      "category":  "Open Account / Credit Risk",
+                      "riskLevel":  "Medium",
+                      "score":  2,
+                      "conditionField":  "paymentMethod",
+                      "conditionOperator":  "equals",
+                      "conditionValue":  "da",
+                      "reason":  "Documents against acceptance may create credit exposure because payment occurs after acceptance rather than before release of documents.",
+                      "followUpQuestion":  "What is the buyer\u0027s credit profile and what happens if payment is not made at maturity?",
+                      "reviewPoint":  "Review payment maturity, bank involvement, collection procedure, default remedies, and credit support.",
+                      "riskArea":  "AML / trade-based money laundering",
+                      "triggerCondition":  "paymentMethod equals da",
+                      "severity":  "Medium",
+                      "sourceKeys":  [
+                                         "FATF_TBML_INDICATORS"
+                                     ],
+                      "legalRationale":  "Trade-based money laundering indicators may include third-party payments, unusual payment routes, mismatched parties, vague goods descriptions, unusual pricing, and unclear source of funds.",
+                      "applicabilityLimits":  "Risk indicators are not conclusive proof of money laundering. They require further due diligence and manual verification.",
+                      "evidenceNeeded":  [
+                                             "Buyer, payer, and beneficiary relationship explanation",
+                                             "Payment instruction",
+                                             "Bank account ownership",
+                                             "Beneficial ownership information",
+                                             "Invoice and shipment documents"
+                                         ],
+                      "recommendedAction":  "Verify payer-buyer relationship, source of funds, beneficial ownership, payment route, and document consistency before accepting payment.",
+                      "escalation":  "Escalate to compliance/finance/legal if payment parties, routes, documents, or source of funds remain unclear.",
+                      "manualVerificationRequired":  true,
+                      "reportLanguage":  {
+                                             "en":  {
+                                                        "title":  "Open Account / Credit Risk",
+                                                        "nextReviewLabel":  "Recommended next review",
+                                                        "legalBasisLabel":  "Legal basis",
+                                                        "explanation":  "Documents against acceptance may create credit exposure because payment occurs after acceptance rather than before release of documents."
+                                                    },
+                                             "zh":  {
+                                                        "title":  "Open Account / Credit Risk",
+                                                        "nextReviewLabel":  "建议下一步审查",
+                                                        "legalBasisLabel":  "法律依据",
+                                                        "explanation":  "Documents against acceptance may create credit exposure because payment occurs after acceptance rather than before release of documents."
+                                                    }
+                                         }
+                  }
+              ]
 }

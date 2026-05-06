@@ -108,3 +108,27 @@ This project demonstrates:
 - Frontend implementation for a no-backend legal operations tool
 
 It shows how legal and compliance knowledge can be structured into an interactive product experience that supports early-stage transaction review, business follow-up, and legal escalation.
+
+## Legal Authority Layer
+
+The demo now includes an internal legal authority matrix. Each risk rule can be linked to international conventions, official regulatory guidance, commercial rules, or practical legal review standards.
+
+The authority layer improves transparency and explainability by showing why a rule was triggered, what authority or reference it relates to, what evidence may be needed, and where manual legal or compliance review remains necessary. The demo remains a rule-based triage tool, not a legal advice system, and it does not determine whether any transaction is lawful or unlawful.
+
+| Risk Area | Source Key | Authority | Use in Demo |
+|---|---|---|---|
+| Incoterms | INCOTERMS_2020 | ICC Incoterms 2020 | Delivery obligations, cost allocation, risk transfer |
+| International sale of goods | CISG_UNCITRAL | UNCITRAL CISG | Governing law and CISG review |
+| Arbitration | NEW_YORK_CONVENTION | New York Convention | Cross-border arbitral award enforcement |
+| Sanctions | UN / EU / OFAC / OFSI | Sanctions guidance/lists | Manual sanctions screening flags |
+| Export control | BIS / UK ECJU | Export control guidance | End-use, end-user, controlled item review |
+| AML / TBML | FATF_TBML_INDICATORS | FATF guidance | Trade-based money laundering red flags |
+| Anti-bribery | UK Bribery Act / FCPA | Official anti-corruption guidance | Agent, commission, government customer risks |
+| Data transfer | GDPR_SCC_EU_COMMISSION | European Commission SCCs | Cross-border personal data transfer review |
+
+### Legal Authority Layer Limitations
+
+- This demo does not connect to live sanctions, export control, company registry, AML, or legal databases.
+- Manual verification against current official databases and applicable local law is required.
+- Linked sources are used for explainability and triage only.
+- The demo does not provide legal advice and does not determine legality or illegality.
