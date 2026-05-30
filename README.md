@@ -1,134 +1,92 @@
-# International Trade Legal Risk Screening Demo
+# Power Equipment / Heavy Machinery Export Compliance Screening Demo
 
-## Project Overview
+This project has been narrowed from a general international trade risk screening demo to a vertical LegalTech prototype for power equipment and heavy machinery export compliance. It uses transformer export as the core sample scenario and focuses on export-control review, sanctions screening, high-value equipment payment risk, technical specification disputes, acceptance standards, OEM/IP issues, and dispute-resolution clauses.
 
-**International Trade Legal Risk Screening Demo** is a static LegalTech portfolio project for preliminary legal and compliance risk screening in international trade transactions.
+本项目已从泛外贸交易风险初筛工具，进一步收窄为电力设备/重型机械出口合规初筛原型。项目以变压器出口为核心示例场景，重点关注出口管制、制裁筛查、高价值设备付款风险、技术规格与验收争议、OEM/知识产权问题和争议解决条款。
 
-The project translates common trade compliance and contract review issues into a structured intake workflow, a JSON-based rule library, a transparent scoring model, and bilingual report generation. It is designed to demonstrate how legal issue spotting can be turned into a lightweight legal operations tool for business, legal, and compliance teams.
+This demo now includes a workflow layer reflecting the practical lifecycle of power equipment and heavy machinery export transactions: pre-contract, contract signing, production, pre-shipment, delivery, and warranty/after-sales. The purpose is to show not only what the risks are, but also when they should be reviewed and what actions should be completed before the transaction moves to the next stage.
 
-This is a portfolio demo only. It does not provide formal legal advice.
+本项目进一步增加了交易流程层，将电力设备/重型机械出口交易拆分为签约前、合同签署、生产、发货前、交付和质保/售后等阶段。项目不仅提示风险点，也强调每项风险应在交易链条的哪个节点完成复核，以及业务/法务/合规下一步需要补充哪些材料或动作。
 
-## Key Features
+## Positioning
 
-- Structured transaction intake form
-- JSON rule library for configurable risk screening
-- Risk scoring and overall risk level calculation
-- Triggered risk cards with risk level badges
-- Chinese legal risk screening report
-- English executive summary
-- Bilingual side-by-side report view
-- Business follow-up checklist
-- Suggested legal review points
-- Low-risk, medium-risk, and high-risk sample transactions
-- Copy report, download TXT report, and print report actions
-- Responsive layout for desktop and mobile
+This is a LegalTech portfolio prototype for preliminary legal and compliance issue-spotting in power equipment and heavy machinery export transactions. It focuses on high-value B2B exports such as transformers, industrial electrical equipment, and heavy machinery, where export-control review, sanctions screening, payment security, technical specifications, acceptance standards, and dispute-resolution clauses are especially important.
 
-## Covered Risk Areas
+本项目是一个作品集性质的 LegalTech 原型，用于电力设备/重型机械出口交易中的法律与合规风险初筛。典型场景包括中国企业出口变压器、工业电气设备和大型机械设备，重点识别出口管制、制裁筛查、高价值设备付款条款、技术规格与验收争议、争议解决和知识产权/OEM 等风险点。
 
-- Payment risk
-- Third-party payment / AML risk
-- Incoterms and delivery risk
-- Export control
-- Sanctions screening
-- Anti-bribery
-- Governing law
-- Dispute resolution
-- Cross-border data protection
-- High-value transaction review
-- Open account / credit risk
+## Important Limitations
 
-## Risk Scoring Logic
+- This tool does not provide legal advice.
+- It is only a preliminary issue-spotting and escalation prototype.
+- Manual legal/compliance review is required.
+- It does not query live sanctions lists or export-control databases.
+- It does not determine whether a transaction is lawful.
+- It does not classify HS/ECCN codes automatically.
+- It does not certify technical compliance.
+- Manual legal, compliance, trade, and engineering review is required before real transaction use.
 
-Each triggered rule contributes to the total risk score:
+## Static Authority Reference Library
 
-- Low risk = 1 point
-- Medium risk = 2 points
-- High risk = 3 points
+This demo contains a static authority reference library. Each risk rule is mapped to authority references such as ICC Incoterms 2020, CISG, OFAC sanctions sources, EU/UK sanctions sources, BIS EAR/CCL references, China Export Control Law, FATF TBML indicators, IEC transformer standards, WIPO trademark references, New York Convention, UNCITRAL Model Law, GDPR SCCs, and China PIPL cross-border transfer references.
 
-Overall risk level:
+These references are issue-spotting anchors for a LegalTech portfolio prototype. They are not exhaustive, the demo does not perform live legal research, and the demo does not replace manual legal review. Official sources must be checked before real transactions.
 
-- 0-3 points: Low
-- 4-7 points: Medium
-- 8+ points: High
+The authority library is stored in `authority-references.json`. Rules in `rules.json` bind to the library through `authorityIds`, so each triggered risk can display visible legal, regulatory, database, standards, treaty, or institutional guidance references in the report.
 
-Certain red flags can raise the overall level to at least Medium, including third-party payment, missing sanctions screening, possible export control issues, and cross-border data transfer. If two or more critical red flags appear together, the overall level is treated as High.
+## Core Scenario
 
-## Tech Stack
+The main sample use case is a Chinese seller exporting customized power transformers to an overseas buyer. The buyer requests OEM labeling and provides technical specifications based on IEC standards. The destination country is high-risk or requires further sanctions/export-control review. Payment is T/T with low advance payment and a long production cycle. Technical acceptance standards and dispute resolution clauses are incomplete.
 
-- HTML
-- CSS
-- JavaScript
-- JSON rule library
-- GitHub Pages
+The sample is designed to trigger:
 
-No backend, database, build tool, or framework is required.
+- Export-control review risk
+- Sanctions and restricted-party screening risk
+- High-value equipment payment risk
+- Technical specification and acceptance dispute risk
+- OEM / IP / confidentiality risk
+- Dispute-resolution clause risk
+- Trade terms and governing law clarity risk
+- Cross-border data transfer review risk
+- Incoterms, logistics, and shipment document readiness risk
+- Delivery delay and regulatory-delay allocation risk
+- End-user, end-use, no re-export, and diversion risk
+- Warranty and after-sales service risk
+
+## Workflow Layer
+
+The form is organized into practical workflow sections:
+
+- Transaction overview
+- Product & technical specifications
+- Sanctions / export control / end-use
+- Payment security
+- Incoterms / logistics / documents
+- FAT / SAT / acceptance
+- Warranty / after-sales
+- Dispute resolution / governing law
+- Report
+
+Each triggered risk card now includes the risk category, affected transaction stage, urgency, triggered facts, rationale, authority references, evidence needed, recommended action, and manual review requirement. The generated report also includes an action checklist by stage: before signing, before production, before shipment, before delivery/acceptance, and warranty/after-sales.
+
+## Files
+
+- `index.html`: homepage, screening form, and report container
+- `script.js`: sample loader, rule evaluation, and report rendering
+- `rules.json`: rule-based legal/compliance issue-spotting logic
+- `authority-references.json`: static authority reference library for rule-to-source mapping
+- `styles.css`: professional portfolio styling
 
 ## How to Use
 
-1. Open `index.html` in a browser.
-2. Fill in the transaction information manually, or use one of the sample transaction buttons:
-   - Low-risk sample
-   - Medium-risk sample
-   - High-risk sample
-3. Click **Run Risk Screening**.
-4. Review the overall risk level, risk score, and triggered risk cards.
-5. Open the Chinese report, English summary, or bilingual report view.
-6. Copy, download, or print the generated report.
+Open `index.html` in a browser, click **Load Transformer Export Example**, and then review the generated preliminary screening report. You can also change form inputs manually and generate a new report.
 
-## Deployment
+Use **View Sources / Authority Library** on the homepage to inspect all built-in references by category:
 
-This project can be deployed directly to GitHub Pages:
-
-1. Create a GitHub repository.
-2. Upload `index.html`, `style.css`, `script.js`, `rules.json`, and `README.md`.
-3. Go to repository `Settings` > `Pages`.
-4. Select the deployment branch and root folder.
-5. Open the generated GitHub Pages URL.
-
-## Limitations
-
-- This is a preliminary screening tool.
-- It does not replace legal advice.
-- The rules are simplified for demo and portfolio purposes.
-- The rule library is not jurisdiction-specific.
-- The project does not connect to live sanctions lists, export control databases, corporate registries, or data protection compliance databases.
-- Real-world deployment would require legal review, updated compliance data sources, audit trails, user permissions, and data security controls.
-
-## Portfolio Value
-
-This project demonstrates:
-
-- Legal issue spotting
-- Risk classification and scoring
-- Legal process design
-- Rule-based legal workflow design
-- AI-assisted coding
-- LegalTech product thinking
-- Bilingual legal communication
-- Frontend implementation for a no-backend legal operations tool
-
-It shows how legal and compliance knowledge can be structured into an interactive product experience that supports early-stage transaction review, business follow-up, and legal escalation.
-
-## Legal Authority Layer
-
-The demo now includes an internal legal authority matrix. Each risk rule can be linked to international conventions, official regulatory guidance, commercial rules, or practical legal review standards.
-
-The authority layer improves transparency and explainability by showing why a rule was triggered, what authority or reference it relates to, what evidence may be needed, and where manual legal or compliance review remains necessary. The demo remains a rule-based triage tool, not a legal advice system, and it does not determine whether any transaction is lawful or unlawful.
-
-| Risk Area | Source Key | Authority | Use in Demo |
-|---|---|---|---|
-| Incoterms | INCOTERMS_2020 | ICC Incoterms 2020 | Delivery obligations, cost allocation, risk transfer |
-| International sale of goods | CISG_UNCITRAL | UNCITRAL CISG | Governing law and CISG review |
-| Arbitration | NEW_YORK_CONVENTION | New York Convention | Cross-border arbitral award enforcement |
-| Sanctions | UN / EU / OFAC / OFSI | Sanctions guidance/lists | Manual sanctions screening flags |
-| Export control | BIS / UK ECJU | Export control guidance | End-use, end-user, controlled item review |
-| AML / TBML | FATF_TBML_INDICATORS | FATF guidance | Trade-based money laundering red flags |
-| Anti-bribery | UK Bribery Act / FCPA | Official anti-corruption guidance | Agent, commission, government customer risks |
-| Data transfer | GDPR_SCC_EU_COMMISSION | European Commission SCCs | Cross-border personal data transfer review |
-
-### Legal Authority Layer Limitations
-
-- This demo does not connect to live sanctions, export control, company registry, AML, or legal databases.
-- Manual verification against current official databases and applicable local law is required.
-- Linked sources are used for explainability and triage only.
-- The demo does not provide legal advice and does not determine legality or illegality.
+- Trade Terms & International Sale of Goods
+- Sanctions & Restricted Party Screening
+- Export Control
+- AML / Trade-Based Money Laundering
+- Technical Standards
+- IP / OEM / Confidentiality
+- Arbitration & Dispute Resolution
+- Cross-border Data Transfer
