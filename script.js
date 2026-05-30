@@ -19,10 +19,14 @@ const highRiskJurisdictions = [
 const form = document.querySelector("#screening-form");
 const report = document.querySelector("#report");
 const exampleButton = document.querySelector("#load-transformer-example");
+const heroLoadSampleButton = document.querySelector("#hero-load-sample");
+const heroGenerateSampleButton = document.querySelector("#hero-generate-sample");
 const openAuthorityButton = document.querySelector("#open-authority-library");
+const heroOpenAuthorityButton = document.querySelector("#hero-open-authority-library");
 const closeAuthorityButton = document.querySelector("#close-authority-library");
 const authorityDialog = document.querySelector("#authority-dialog");
 const authorityLibraryContent = document.querySelector("#authority-library-content");
+const sampleStatus = document.querySelector("#sample-status");
 
 document.querySelector("#rule-version").textContent = ruleLibraryVersion;
 
@@ -43,6 +47,18 @@ Promise.all([
   });
 
 exampleButton.addEventListener("click", () => {
+  loadTransformerExample({ scrollToReport: true });
+});
+
+heroLoadSampleButton.addEventListener("click", () => {
+  loadTransformerExample({ scrollToReport: false });
+});
+
+heroGenerateSampleButton.addEventListener("click", () => {
+  loadTransformerExample({ scrollToReport: true });
+});
+
+function loadTransformerExample({ scrollToReport }) {
   setFormValues({
     sellerCountry: "China",
     transactionStage: "pre-contract",
@@ -118,7 +134,13 @@ exampleButton.addEventListener("click", () => {
   });
 
   generateReport(new FormData(form));
-});
+  sampleStatus.textContent = scrollToReport
+    ? "Sample loaded. Scroll down to review the report."
+    : "Sample loaded. You can generate or review the report on the right.";
+  if (scrollToReport) {
+    report.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -126,6 +148,10 @@ form.addEventListener("submit", (event) => {
 });
 
 openAuthorityButton.addEventListener("click", () => {
+  authorityDialog.showModal();
+});
+
+heroOpenAuthorityButton.addEventListener("click", () => {
   authorityDialog.showModal();
 });
 
@@ -171,6 +197,7 @@ function generateReport(formData) {
   const matches = rules
     .map((rule) => ({ rule, facts: getTriggeredFacts(rule, values) }))
     .filter((result) => result.facts.length > 0);
+  const summary = getExecutiveSummary(matches, values);
 
   report.innerHTML = `
     <div class="report-header">
@@ -189,6 +216,7 @@ function generateReport(formData) {
         whether a transaction is lawful.
       </p>
     </div>
+    ${renderExecutiveSummary(summary)}
     ${renderStageChecklist(values.transactionStage)}
     ${
       matches.length
@@ -211,12 +239,12 @@ function renderRisk(rule, facts) {
           <h3>${escapeHtml(rule.title)}</h3>
           <p>${escapeHtml(rule.titleZh)}</p>
         </div>
-        <span class="badge">${escapeHtml(rule.riskLevel)}</span>
+        <span class="badge risk-level ${getRiskLevelClass(rule.riskLevel)}">${escapeHtml(rule.riskLevel)}</span>
       </div>
       <div class="risk-meta">
         <span><strong>Risk category:</strong> ${escapeHtml(category)}</span>
         <span><strong>Transaction stage affected:</strong> ${escapeHtml(stageProfile.stageLabel)}</span>
-        <span><strong>Urgency:</strong> ${escapeHtml(stageProfile.urgency)}</span>
+        <span><strong>Urgency:</strong> <span class="badge urgency-badge">${escapeHtml(stageProfile.urgencyPhase)}</span> ${escapeHtml(stageProfile.urgency)}</span>
       </div>
       ${renderList("Triggered fact / 触发事实", facts)}
       <p><strong>Risk level / 风险等级:</strong> ${escapeHtml(rule.riskLevel)}</p>
@@ -244,6 +272,56 @@ function renderAuthorityDetails(references) {
       </div>
     </details>
   `;
+}
+
+function renderExecutiveSummary(summary) {
+  return `
+    <section class="executive-summary">
+      <p class="eyebrow">Executive Summary / 初筛摘要</p>
+      <h3>Executive Summary / 初筛摘要</h3>
+      <div class="summary-grid">
+        <div>
+          <span>Total triggered risks</span>
+          <strong>${summary.totalRisks}</strong>
+        </div>
+        <div>
+          <span>High risk count</span>
+          <strong>${summary.highRiskCount}</strong>
+        </div>
+        <div>
+          <span>Current transaction stage</span>
+          <strong>${escapeHtml(summary.stageLabel)}</strong>
+        </div>
+        <div>
+          <span>Manual review</span>
+          <strong>Required</strong>
+        </div>
+      </div>
+      ${renderList("Main urgent actions / 主要紧急动作", summary.mainActions)}
+      <p class="summary-reminder">Reminder: manual legal/compliance review is required. This demo does not query live databases or determine legality.</p>
+    </section>
+  `;
+}
+
+function getExecutiveSummary(matches, values) {
+  const highRiskCount = matches.filter(({ rule }) => String(rule.riskLevel).toLowerCase().includes("high")).length;
+  const actions = [];
+  const ruleIds = new Set(matches.map(({ rule }) => rule.id));
+
+  if (ruleIds.has("sanctions-screening")) actions.push("Complete current sanctions and restricted-party screening.");
+  if (ruleIds.has("export-control-review")) actions.push("Conduct export-control classification and end-use/end-user review.");
+  if (ruleIds.has("high-value-payment")) actions.push("Confirm advance payment, L/C, guarantees, and payment-security terms before production.");
+  if (ruleIds.has("technical-acceptance")) actions.push("Clarify technical appendix, FAT/SAT, acceptance criteria, and test remedies.");
+  if (ruleIds.has("end-use-diversion")) actions.push("Confirm end user, end-use statement, no re-export/no diversion clause, and routing.");
+  if (ruleIds.has("trade-terms-governing-law")) actions.push("Clarify Incoterms rule, named place, governing law, and CISG position.");
+  if (!actions.length) actions.push("Review transaction facts manually before proceeding to the next stage.");
+
+  return {
+    totalRisks: matches.length,
+    highRiskCount,
+    stageLabel: getStageLabel(values.transactionStage),
+    mainActions: actions.slice(0, 5)
+  };
 }
 
 function renderStageChecklist(currentStage) {
@@ -315,7 +393,7 @@ function renderStageChecklist(currentStage) {
         ${stages.map((stage) => `
           <div class="checklist-card ${isCurrentChecklistStage(stage.id, currentStage) ? "current" : ""}">
             <h4>${escapeHtml(stage.title)}</h4>
-            <ul>${stage.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+            <ul class="checklist-items">${stage.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
           </div>
         `).join("")}
       </div>
@@ -325,13 +403,15 @@ function renderStageChecklist(currentStage) {
 
 function renderAuthorityReference(reference) {
   const link = reference.officialUrl
-    ? `<a href="${escapeAttribute(reference.officialUrl)}" target="_blank" rel="noreferrer">${escapeHtml(reference.officialUrl)}</a>`
-    : `<span>Manual contract/legal review source; no single official URL</span>`;
+    ? `<a href="${escapeAttribute(reference.officialUrl)}" target="_blank" rel="noopener noreferrer">Open official source / 打开官方来源</a>`
+    : `<span>Manual review source / No single official URL</span>`;
 
   return `
     <div class="authority-ref">
       <h5>${escapeHtml(reference.name)}</h5>
       <dl>
+        <dt>Category / 类别</dt>
+        <dd>${escapeHtml(reference.category)}</dd>
         <dt>Jurisdiction / 管辖区域</dt>
         <dd>${escapeHtml(reference.jurisdiction)}</dd>
         <dt>Source type / 来源类型</dt>
@@ -435,6 +515,7 @@ function getRiskCategory(ruleId) {
 function getStageProfile(ruleId, values) {
   const stage = values.transactionStage || "pre-contract";
   const stageLabel = getStageLabel(stage);
+  const urgencyPhase = getUrgencyPhase(stage);
   const map = {
     "export-control-review": {
       "pre-contract": "Before signing: complete classification and end-use/end-user review before contract signing.",
@@ -475,8 +556,28 @@ function getStageProfile(ruleId, values) {
   };
   return {
     stageLabel,
+    urgencyPhase,
     urgency: map[ruleId]?.[stage] || defaultUrgency(stage)
   };
+}
+
+function getUrgencyPhase(stage) {
+  const phases = {
+    "pre-contract": "Before signing",
+    "contract-signed": "Before production",
+    "production": "Before shipment",
+    "pre-shipment": "Before shipment",
+    "delivery": "Before delivery",
+    "warranty": "Warranty"
+  };
+  return phases[stage] || "Before signing";
+}
+
+function getRiskLevelClass(riskLevel) {
+  const normalized = String(riskLevel).toLowerCase();
+  if (normalized.includes("high")) return "risk-high";
+  if (normalized.includes("medium")) return "risk-medium";
+  return "risk-low";
 }
 
 function defaultUrgency(stage) {
