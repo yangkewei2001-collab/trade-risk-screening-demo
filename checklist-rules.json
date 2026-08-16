@@ -1,0 +1,69 @@
+{
+  "version": "2026.08.16-explainable-v1",
+  "scope": "Question checklist only. No legality, sanctions, export-control, customs or technical classification conclusions.",
+  "rules": [
+    {
+      "id": "transaction-basics",
+      "module": "Transaction Basics",
+      "check": "Seller, buyer, country/region, product, contract value, currency and basic description are present.",
+      "basisZh": "完整性检查：交易主体、标的、金额与基本结构应能与报价、订单和合同首页相互核对。",
+      "basisEn": "Completeness check: parties, subject matter, value and structure should reconcile across the quotation, order and contract cover.",
+      "reviewer": ["Legal", "Business"],
+      "authorityIds": ["CISG_UNCITRAL"]
+    },
+    {
+      "id": "payment-structure",
+      "module": "Payment",
+      "check": "Advance and balance percentages total 100%, and milestones and conditions are stated.",
+      "basisZh": "算术与可执行性检查：付款比例应一致，触发条件应能对应生产、出运或验收等可验证事件。",
+      "basisEn": "Arithmetic and operability check: percentages should reconcile and triggers should map to verifiable production, shipment or acceptance events.",
+      "reviewer": ["Legal", "Finance", "Business"],
+      "authorityIds": []
+    },
+    {
+      "id": "delivery-documents",
+      "module": "Delivery & Documents",
+      "check": "Incoterms rule, named place, shipment allocation and basic document responsibilities are stated.",
+      "basisZh": "责任分配检查：贸易术语必须与指定地点结合，并与运输及单证责任保持一致。",
+      "basisEn": "Allocation check: the Incoterms rule must be paired with a named place and aligned with shipment and document responsibilities.",
+      "reviewer": ["Logistics", "Business", "Legal"],
+      "authorityIds": ["INCOTERMS_2020"]
+    },
+    {
+      "id": "confidentiality-information",
+      "module": "Confidentiality & Information",
+      "check": "Protected information, marking approach, exclusions and return/destruction arrangements are stated.",
+      "basisZh": "合同完整性检查：确认保护对象、识别方式、合理例外及合同结束后的资料处理。",
+      "basisEn": "Contract completeness check: identify protected material, recognition method, reasonable exclusions and post-contract handling.",
+      "reviewer": ["Legal", "Business"],
+      "authorityIds": ["OEM_IP_CONFIDENTIALITY_REVIEW"]
+    },
+    {
+      "id": "governing-law-dispute",
+      "module": "Governing Law & Dispute Resolution",
+      "check": "Governing law and dispute method are stated; arbitration also identifies institution, seat and language.",
+      "basisZh": "条款结构检查：只识别要素是否完整及是否明显矛盾，不判断哪个法域或仲裁安排一定最好。",
+      "basisEn": "Clause-structure check: identify missing or visibly inconsistent elements without prescribing the best law or arbitration arrangement.",
+      "reviewer": ["Legal"],
+      "authorityIds": ["CISG_UNCITRAL", "NEW_YORK_CONVENTION_1958", "UNCITRAL_MODEL_LAW_ARBITRATION"]
+    },
+    {
+      "id": "contractual-acceptance",
+      "module": "Acceptance & Next Review",
+      "check": "Contractual acceptance, reviewer, stage, payment effect and location of criteria are stated.",
+      "basisZh": "合同机制检查：仅确认验收节点、责任人与付款关系；技术指标由 Engineering / Quality 判断。",
+      "basisEn": "Contract-mechanism check: confirm stage, owner and payment connection; Engineering / Quality decides technical criteria.",
+      "reviewer": ["Legal", "Business", "Engineering", "Quality"],
+      "authorityIds": []
+    },
+    {
+      "id": "specialist-escalation",
+      "module": "Specialist Review",
+      "check": "Matters outside the checklist are routed without a substantive conclusion.",
+      "basisZh": "边界规则：出口管制、制裁、产品技术属性、最终用途、技术标准及海关分类不得由本工具判断。",
+      "basisEn": "Boundary rule: this tool must not decide export controls, sanctions, product attributes, end use, technical standards or customs classification.",
+      "reviewer": ["Legal", "Trade Compliance", "Engineering", "Logistics"],
+      "authorityIds": []
+    }
+  ]
+}
